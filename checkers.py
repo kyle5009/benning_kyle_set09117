@@ -15,19 +15,18 @@ def printBoard():
 
 printBoard()
 
+turn = 'r'
 print ('select the piece you wish to move')
+move = input()
 coord_A = move.split(",")
 coord_Ax = int(coord_A[0])
 coord_Ay = int(coord_A[1])
 board[coord_Ay][coord_Ax] = '_'
-#board[coord_Ay][coord_Ax] = turn
-#Board[][] = turn
+
 if turn == 'r':
     turn = 'b'
 else:
     turn = 'r'
-
-printBoard()
 
 print ('select where you wish to move that piece ')
 move2 = input()
@@ -42,5 +41,6 @@ def move():
 
     if board == '_':
         print('you must select a valid piece')
+
 
 printBoard()
