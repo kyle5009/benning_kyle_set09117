@@ -21,6 +21,7 @@ coord_Ax = int(coord_A[0])
 coord_Ay = int(coord_A[1])
 board[coord_Ay][coord_Ax] = turn
 
+
 #Board[][] = turn
 if turn == 'r':
     turn = 'b'
