@@ -32,20 +32,24 @@ def changeTurn():
 def notYourPiece_B(coord_Ax,coord_Ay):
     if turn == 'b':
         if board[coord_Ay][coord_Ax] == 'r':
-            print ('you may only move your own piece b')
-            return True
-        else:
+            print ('you may only move your own piece')
             return False
+        else:
+            return True
+    else:
+        return True
 
 
 
 def notYourPiece_R(coord_Ax,coord_Ay):
     if turn == 'r':
         if board[coord_Ay][coord_Ax] == 'b':
-            print ('you may only move your own piece r')
+            print ('you may only move your own piece')
             return False
         else:
             return True
+    else:
+        return True
 
 printBoard()
 
