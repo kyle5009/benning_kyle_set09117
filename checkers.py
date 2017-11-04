@@ -16,7 +16,7 @@ def printBoard():
                 '|' + board[i][6] + '|' + board[i][7] + '|')
 
 def checkNotBlank(coord_Ax,coord_Ay):
-    if board[coord_Ax][coord_Ay] == '_':
+    if board[coord_Ay][coord_Ax] == '_':
         print('you must select a valid piece')
         return False
     else:
@@ -29,14 +29,23 @@ def changeTurn():
     else:
         turn = 'r'
 
-def notYourPiece(coord_Ax,coord_Ay):
+def notYourPiece_B(coord_Ax,coord_Ay):
     if turn == 'b':
-        if board[coord_Ax][coord_Ay] == 'r':
-            print ('you may only move your own piece')
+        if board[coord_Ay][coord_Ax] == 'r':
+            print ('you may only move your own piece b')
+            return True
+        else:
             return False
-    else:
-        return True
 
+
+
+def notYourPiece_R(coord_Ax,coord_Ay):
+    if turn == 'r':
+        if board[coord_Ay][coord_Ax] == 'b':
+            print ('you may only move your own piece r')
+            return False
+        else:
+            return True
 
 printBoard()
 
@@ -47,22 +56,31 @@ while gameWinner == True:
     print ('select the piece you wish to move')
     move = input()
     coord_A = move.split(",")
+    coord_Ax = int(coord_A[0])
+    coord_Ay = int(coord_A[1])
+    print("At coordinate " + str(coord_Ax) + "," + str(coord_Ay) + " is an " + board[coord_Ay][coord_Ax])
     if checkNotBlank(int(coord_A[0]),int(coord_A[1])) == True:
-        if notYourPiece(int(coord_A[0]),int(coord_A[1])) == True:
-            coord_Ax = int(coord_A[0])
-            coord_Ay = int(coord_A[1])
-            board[coord_Ay][coord_Ax] = '_'
+        if notYourPiece_R(int(coord_A[0]),int(coord_A[1])) == True:
+            if notYourPiece_B(int(coord_A[0]),int(coord_A[1])) == True:
+                board[coord_Ay][coord_Ax] = '_'
 
-            print ('select where you wish to move that piece ')
-            move2 = input()
-            coord_A2 = move2.split(",")
-            coord_A2x = int(coord_A2[0])
-            coord_A2y = int(coord_A2[1])
-            board[coord_A2y][coord_A2x] = turn
+                print ('select where you wish to move that piece ')
+                move2 = input()
+                coord_A2 = move2.split(",")
+                coord_A2x = int(coord_A2[0])
+                coord_A2y = int(coord_A2[1])
+                board[coord_A2y][coord_A2x] = turn
 
-            print ("You have moved a piece!")
+                print ("You have moved a piece!")
 
-            changeTurn()
-            printBoard()
+                changeTurn()
+                printBoard()
+            else:
+                print("three")
+        else:
+            print("two")
+    else:
+        print("one")
+
 
 printBoard()
