@@ -32,6 +32,7 @@ def changeTurn():
 def notYourPiece_B(coord_Ax,coord_Ay):
     if turn == 'b':
         if board[coord_Ay][coord_Ax] == 'r':
+
             print ('you may only move your own piece')
             return False
         else:
@@ -51,6 +52,28 @@ def notYourPiece_R(coord_Ax,coord_Ay):
     else:
         return True
 
+def moveOne_r1(coord_Ax,coord_Ay):
+    if turn == 'r':
+        if coord_A2y == coord_Ay -1 and (coord_A2x == coord_Ax - 1 or coord_A2x == coord_Ax + 1):
+            return True
+        else:
+           print('Illegal move')
+           return False
+    else:
+       return True
+
+
+def moveOne_b1(coord_Ax,coord_Ay):
+    if turn == 'b':
+        if coord_A2y == coord_Ay +1 and (coord_A2x == coord_Ax - 1 or coord_A2x == coord_Ax + 1):
+            return True
+        else:
+            print('Illegal move')
+            return False
+    else:
+        return True
+
+
 printBoard()
 
 turn = 'r'
@@ -66,25 +89,25 @@ while gameWinner == True:
     if checkNotBlank(int(coord_A[0]),int(coord_A[1])) == True:
         if notYourPiece_R(int(coord_A[0]),int(coord_A[1])) == True:
             if notYourPiece_B(int(coord_A[0]),int(coord_A[1])) == True:
-                board[coord_Ay][coord_Ax] = '_'
-
+    #         else:
+    #             print("three")
+    #     else:
+    #         print("two")
+    # else:
+    #     print("one")
                 print ('select where you wish to move that piece ')
                 move2 = input()
                 coord_A2 = move2.split(",")
                 coord_A2x = int(coord_A2[0])
                 coord_A2y = int(coord_A2[1])
-                board[coord_A2y][coord_A2x] = turn
+                if moveOne_r1(coord_A2y,coord_A2y) == True:
+                    if moveOne_b1(coord_A2y,coord_A2y) == True:
+                       board[coord_Ay][coord_Ax] = '_'
+                       board[coord_A2y][coord_A2x] = turn
+                       print ("You have moved a piece!")
+                       changeTurn()
+                       printBoard()
 
-                print ("You have moved a piece!")
-
-                changeTurn()
-                printBoard()
-            else:
-                print("three")
-        else:
-            print("two")
-    else:
-        print("one")
 
 
 printBoard()
