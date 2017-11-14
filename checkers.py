@@ -71,8 +71,20 @@ def moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
     else:
         return True
 
-def jump()
-
+def jump(coord_Ax,coord_Ay):
+    if turn == 'r':
+        if board[coord_Ay - 1][coord_Ax + 1] == 'b':
+            if board[coord_Ay - 2][coord_Ax + 2] == '_':
+                board[coord_Ay][coord_Ax] = '_'
+                board[coord_Ay - 1][coord_Ax + 1] = '_'
+                board[coord_Ay - 2][coord_Ax + 2] = 'turn'
+                return true
+            else:
+                return False
+        else:
+            return False
+    else:
+        return True
 
 printBoard()
 
