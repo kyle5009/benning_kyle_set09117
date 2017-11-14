@@ -139,6 +139,11 @@ def jump_b2(coord_Ax,coord_Ay):
     else:
         return True
 
+def king():
+    for i in range(0,8):
+        if board[i][7] == 'r':
+            board[i][7] = 'R'
+
 
 printBoard()
 
@@ -169,6 +174,9 @@ while gameWinner == True:
                                        board[coord_Ay][coord_Ax] = '_'
                                        board[coord_A2y][coord_A2x] = turn
                                        print ("You have moved a piece!")
+                                       for i in range(0,7):
+                                           if board[0][i] == 'r':
+                                               board[0][i] = 'R'
                                        changeTurn()
                                        printBoard()
 
