@@ -71,18 +71,20 @@ def moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
     else:
         return True
 
-def jump(coord_Ax,coord_Ay):
+def jump_r1(coord_Ax,coord_Ay):
     if turn == 'r':
         if board[coord_Ay - 1][coord_Ax + 1] == 'b':
             if board[coord_Ay - 2][coord_Ax + 2] == '_':
                 board[coord_Ay][coord_Ax] = '_'
                 board[coord_Ay - 1][coord_Ax + 1] = '_'
-                board[coord_Ay - 2][coord_Ax + 2] = 'turn'
-                return true
+                board[coord_Ay - 2][coord_Ax + 2] = turn
+                changeTurn()
+                printBoard()
+                return True
             else:
-                return False
+                return True
         else:
-            return False
+            return True
     else:
         return True
 
@@ -97,21 +99,22 @@ while gameWinner == True:
     coord_A = move.split(",")
     coord_Ax = int(coord_A[0])
     coord_Ay = int(coord_A[1])
-    print("At coordinate " + str(coord_Ax) + "," + str(coord_Ay) + " is an " + board[coord_Ay][coord_Ax])
-    if checkNotBlank(int(coord_A[0]),int(coord_A[1])) == True:
-        if notYourPiece_R(int(coord_A[0]),int(coord_A[1])) == True:
-            if notYourPiece_B(int(coord_A[0]),int(coord_A[1])) == True:
-                print ('select where you wish to move that piece ')
-                move2 = input()
-                coord_A2 = move2.split(",")
-                coord_A2x = int(coord_A2[0])
-                coord_A2y = int(coord_A2[1])
-                if moveOne_r1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
-                    if moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
-                       board[coord_Ay][coord_Ax] = '_'
-                       board[coord_A2y][coord_A2x] = turn
-                       print ("You have moved a piece!")
-                       changeTurn()
-                       printBoard()
+    if jump_r1(coord_Ax,coord_Ay) == True:
+        print("At coordinate " + str(coord_Ax) + "," + str(coord_Ay) + " is an " + board[coord_Ay][coord_Ax])
+        if checkNotBlank(int(coord_A[0]),int(coord_A[1])) == True:
+            if notYourPiece_R(int(coord_A[0]),int(coord_A[1])) == True:
+                if notYourPiece_B(int(coord_A[0]),int(coord_A[1])) == True:
+                    print ('select where you wish to move that piece ')
+                    move2 = input()
+                    coord_A2 = move2.split(",")
+                    coord_A2x = int(coord_A2[0])
+                    coord_A2y = int(coord_A2[1])
+                    if moveOne_r1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
+                        if moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
+                           board[coord_Ay][coord_Ax] = '_'
+                           board[coord_A2y][coord_A2x] = turn
+                           print ("You have moved a piece!")
+                           changeTurn()
+                           printBoard()
 
 printBoard()
