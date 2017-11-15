@@ -174,9 +174,12 @@ while gameWinner == True:
                                        board[coord_Ay][coord_Ax] = '_'
                                        board[coord_A2y][coord_A2x] = turn
                                        print ("You have moved a piece!")
-                                       for i in range(0,7):
+                                       for i in range(0,8):
                                            if board[0][i] == 'r':
                                                board[0][i] = 'R'
+                                       for i in range(0,8):
+                                           if board[7][i] == 'b':
+                                               board[7][i] = 'B'
                                        changeTurn()
                                        printBoard()
 
