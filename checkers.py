@@ -31,7 +31,7 @@ def changeTurn():
 
 def notYourPiece_B(coord_Ax,coord_Ay):
     if turn == 'b':
-        if board[coord_Ay][coord_Ax] == 'r':
+        if board[coord_Ay][coord_Ax] == 'r' or 'R':
 
             print ('you may only move your own piece')
             return False
@@ -42,7 +42,7 @@ def notYourPiece_B(coord_Ax,coord_Ay):
 
 def notYourPiece_R(coord_Ax,coord_Ay):
     if turn == 'r':
-        if board[coord_Ay][coord_Ax] == 'b':
+        if board[coord_Ay][coord_Ax] == 'b' or 'B':
             print ('you may only move your own piece')
             return False
         else:
@@ -52,23 +52,59 @@ def notYourPiece_R(coord_Ax,coord_Ay):
 
 def moveOne_r1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
     if turn == 'r':
-        print(turn)
-        if coord_A2y == (coord_Ay - 1) and ((coord_A2x == coord_Ax - 1) or (coord_A2x == coord_Ax + 1)):
-            return True
+        if board[coord_Ay][coord_Ax] == 'r':
+            if coord_A2y == (coord_Ay - 1) and ((coord_A2x == coord_Ax - 1) or (coord_A2x == coord_Ax + 1)):
+                return True
+            else:
+                print('Illegal move')
+                return False
         else:
-           print('Illegal move')
-           return False
+            return True
     else:
        return True
 
+def moveOne_kkb1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
+    if turn == 'r':
+        if board[coord_Ay][coord_Ax] == 'R':
+            if ((coord_A2y == coord_Ay - 1) or (coord_Ay + 1)) and ((coord_A2x == coord_Ax - 1) or (coord_A2x == coord_Ax + 1)):
+                return True
+            else:
+                print('Illegal move100')
+                return False
+        else:
+            print ('1')
+            return True
+    else:
+        print('2')
+        return True
+
+
 def moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
     if turn == 'b':
-        if coord_A2y == coord_Ay + 1 and (coord_A2x == coord_Ax - 1 or coord_A2x == coord_Ax + 1):
-            return True
+        if board[coord_Ay][coord_Ax] == 'b':
+            if coord_A2y == (coord_Ay - 1) and ((coord_A2x == coord_Ax - 1) or (coord_A2x == coord_Ax + 1)):
+                return True
+            else:
+                print('Illegal move')
+                return False
         else:
-            print('Illegal move')
-            return False
+            return True
     else:
+       return True
+
+def moveOne_kkr1(coord_Ax,coord_Ay,coord_A2x,coord_A2y):
+    if turn == 'b':
+        if board[coord_Ay][coord_Ax] == 'B':
+            if ((coord_A2y == coord_Ay - 1) or (coord_Ay + 1)) and ((coord_A2x == coord_Ax - 1) or (coord_A2x == coord_Ax + 1)):
+                return True
+            else:
+                print('Illegal move100')
+                return False
+        else:
+            print ('1')
+            return True
+    else:
+        print('2')
         return True
 
 def jump_r1(coord_Ax,coord_Ay):
@@ -77,7 +113,7 @@ def jump_r1(coord_Ax,coord_Ay):
             if board[coord_Ay - 2][coord_Ax + 2] == '_':
                 board[coord_Ay][coord_Ax] = '_'
                 board[coord_Ay - 1][coord_Ax + 1] = '_'
-                board[coord_Ay - 2][coord_Ax + 2] = turn
+                board[coord_Ay - 2][coord_Ax + 2] = board[coord_Ay][coord_Ax]
                 changeTurn()
                 printBoard()
                 return True
@@ -94,7 +130,7 @@ def jump_r2(coord_Ax,coord_Ay):
             if board[coord_Ay - 2][coord_Ax - 2] == '_':
                 board[coord_Ay][coord_Ax] = '_'
                 board[coord_Ay - 1][coord_Ax - 1] = '_'
-                board[coord_Ay - 2][coord_Ax - 2] = turn
+                board[coord_Ay - 2][coord_Ax - 2] = board[coord_Ay][coord_Ax]
                 changeTurn()
                 printBoard()
                 return True
@@ -111,7 +147,7 @@ def jump_b1(coord_Ax,coord_Ay):
             if board[coord_Ay + 2][coord_Ax - 2] == '_':
                 board[coord_Ay][coord_Ax] = '_'
                 board[coord_Ay + 1][coord_Ax - 1] = '_'
-                board[coord_Ay + 2][coord_Ax - 2] = turn
+                board[coord_Ay + 2][coord_Ax - 2] = board[coord_Ay][coord_Ax]
                 changeTurn()
                 printBoard()
                 return True
@@ -128,7 +164,7 @@ def jump_b2(coord_Ax,coord_Ay):
             if board[coord_Ay + 2][coord_Ax + 2] == '_':
                 board[coord_Ay][coord_Ax] = '_'
                 board[coord_Ay + 1][coord_Ax + 1] = '_'
-                board[coord_Ay + 2][coord_Ax + 2] = turn
+                board[coord_Ay + 2][coord_Ax + 2] = board[coord_Ay][coord_Ax]
                 changeTurn()
                 printBoard()
                 return True
@@ -139,10 +175,75 @@ def jump_b2(coord_Ax,coord_Ay):
     else:
         return True
 
-def king():
-    for i in range(0,8):
-        if board[i][7] == 'r':
-            board[i][7] = 'R'
+# king pieces
+
+def jump_kr1(coord_Ax,coord_Ay):
+    if turn == 'r':
+        if board[coord_Ay - 1][coord_Ax + 1] == 'B':
+            if board[coord_Ay - 2][coord_Ax + 2] == '_':
+                board[coord_Ay][coord_Ax] = '_'
+                board[coord_Ay - 1][coord_Ax + 1] = '_'
+                board[coord_Ay - 2][coord_Ax + 2] = board[coord_Ay][coord_Ax]
+                changeTurn()
+                printBoard()
+                return True
+            else:
+                return True
+        else:
+            return True
+    else:
+        return True
+
+def jump_kr2(coord_Ax,coord_Ay):
+    if turn == 'r':
+        if board[coord_Ay - 1][coord_Ax - 1] == 'B':
+            if board[coord_Ay - 2][coord_Ax - 2] == '_':
+                board[coord_Ay][coord_Ax] = '_'
+                board[coord_Ay - 1][coord_Ax - 1] = '_'
+                board[coord_Ay - 2][coord_Ax - 2] = board[coord_Ay][coord_Ax]
+                changeTurn()
+                printBoard()
+                return True
+            else:
+                return True
+        else:
+            return True
+    else:
+        return True
+
+def jump_kb1(coord_Ax,coord_Ay):
+    if turn == 'b':
+        if board[coord_Ay + 1][coord_Ax - 1] == 'R':
+            if board[coord_Ay + 2][coord_Ax - 2] == '_':
+                board[coord_Ay][coord_Ax] = '_'
+                board[coord_Ay + 1][coord_Ax - 1] = '_'
+                board[coord_Ay + 2][coord_Ax - 2] = board[coord_Ay][coord_Ax]
+                changeTurn()
+                printBoard()
+                return True
+            else:
+                return True
+        else:
+            return True
+    else:
+        return True
+
+def jump_kb2(coord_Ax,coord_Ay):
+    if turn == 'b':
+        if board[coord_Ay + 1][coord_Ax + 1] == 'R':
+            if board[coord_Ay + 2][coord_Ax + 2] == '_':
+                board[coord_Ay][coord_Ax] = '_'
+                board[coord_Ay + 1][coord_Ax + 1] = '_'
+                board[coord_Ay + 2][coord_Ax + 2] = board[coord_Ay][coord_Ax]
+                changeTurn()
+                printBoard()
+                return True
+            else:
+                return True
+        else:
+            return True
+    else:
+        return True
 
 
 printBoard()
@@ -171,16 +272,18 @@ while gameWinner == True:
                                 coord_A2y = int(coord_A2[1])
                                 if moveOne_r1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
                                     if moveOne_b1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
-                                       board[coord_Ay][coord_Ax] = '_'
-                                       board[coord_A2y][coord_A2x] = turn
-                                       print ("You have moved a piece!")
-                                       for i in range(0,8):
-                                           if board[0][i] == 'r':
-                                               board[0][i] = 'R'
-                                       for i in range(0,8):
-                                           if board[7][i] == 'b':
-                                               board[7][i] = 'B'
-                                       changeTurn()
-                                       printBoard()
+                                       if moveOne_kkb1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
+                                           if moveOne_kkr1(coord_Ax,coord_Ay,coord_A2x,coord_A2y) == True:
+                                               board[coord_A2y][coord_A2x] = board[coord_Ay][coord_Ax]
+                                               board[coord_Ay][coord_Ax] = '_'
+                                               print ("You have moved a piece!")
+                                               for i in range(0,8):
+                                                   if board[0][i] == 'r':
+                                                       board[0][i] = 'R'
+                                               for i in range(0,8):
+                                                   if board[7][i] == 'b':
+                                                       board[7][i] = 'B'
+                                               changeTurn()
+                                               printBoard()
 
-printBoard()
+    printBoard()
